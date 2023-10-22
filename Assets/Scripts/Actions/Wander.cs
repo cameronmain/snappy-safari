@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+        /* 
+        The method performs the following steps:
+        1. Acquires the NavMeshAgent component from the game object.
+        2. Generates a random position within a sphere of radius 20 units around the current position.
+        3. Samples a valid position on the NavMesh close to the random position.
+        4. Sets the agent's destination to the sampled NavMesh position, causing the agent to wander to that location.
+        */
+        
 public class Wander : GAction
 {
     public override bool PrePerform()

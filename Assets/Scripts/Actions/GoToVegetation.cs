@@ -6,27 +6,26 @@ public class GoToVegetation : GAction
 {
     public override bool PrePerform()
     {
-
-        // Get a free toilet
+        // get free vegetation
         target = GWorld.Instance.GetQueue("vegetation").RemoveResource();
-        // Check we got a toilet
+        // check if we got valid vegetation
         if (target == null) return false;
-        // Add it to the inventory
+        // add the vegetation to the inventory
         inventory.AddItem(target);
-        // Remove it's availability from the world
+        // remove its availability from the world
         GWorld.Instance.GetWorld().ModifyState("FreeVeg", -1);
         return true;
     }
 
     public override bool PostPerform()
     {
-        // Return the toilet to the pool
+        // return the vegetation to the pool
         GWorld.Instance.GetQueue("vegetation").AddResource(target);
-        // Remove the toilet from the list
+        // remove the vegetation from the inventory
         inventory.RemoveItem(target);
-        // Give the toilet back to the world
+        // make the vegetation available again in the world
         GWorld.Instance.GetWorld().ModifyState("FreeVeg", 1);
-        // Remove the busting belief so it won't keep trying the action until it's invoked again
+        // remove the satiated belief so the agent doesn't remain in this state indefinitely
         beliefs.RemoveState("satiated");
         return true;
     }
